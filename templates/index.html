@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<h1>Currency Converter</h1>
+
+<form id="conversionForm">
+    <label for="fromCurrency">From Currency:</label>
+    <input type="text" id="fromCurrency" name="fromCurrency" required>
+
+    <label for="toCurrency">To Currency:</label>
+    <input type="text" id="toCurrency" name="toCurrency" required>
+
+    <label for="amount">Amount:</label>
+    <input type="text" id="amount" name="amount" required>
+
+    <button type="button" id="convertButton">Convert</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+    $(document).ready(function () {
+        $("#convertButton").click(function () {
+            // Get form values
+            var fromCurrency = $("#fromCurrency").val();
+            var toCurrency = $("#toCurrency").val();
+            var amount = $("#amount").val();
+
+            // Ajax request
+            $.ajax({
+                url: "/convert",
+                method: "GET",
+                data: {
+                    from: fromCurrency,
+                    to: toCurrency,
+                    amount: amount
+                },
+                success: function (response) {
+                    // Display the result
+                    $("#result").html("Result: " + response.result);
+                },
+                error: function (error) {
+                    // Display error message
+                    $("#result").html("Error: " + error.responseJSON.error);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

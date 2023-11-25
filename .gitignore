@@ -1,0 +1,9 @@
+# .gitignore
+
+# Virtual Environment
+venv/
+env/
+
+# IDE (PyCharm)
+.idea/
+
